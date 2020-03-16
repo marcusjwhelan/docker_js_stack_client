@@ -24,7 +24,8 @@ spec:
   selector:
     matchLabels:
       app: client
-  strategy: {}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
