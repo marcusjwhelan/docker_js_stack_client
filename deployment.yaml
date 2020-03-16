@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: client
-        image: docker-js-stack-client
+        image: mjwrazor/docker-js-stack-client:v0.1.0
         imagePullPolicy: Always
         resources: {}
         ports:
