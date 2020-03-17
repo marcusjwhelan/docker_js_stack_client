@@ -9,7 +9,7 @@ spec:
     protocol: TCP
   selector:
     app: client
-  type: NodePort
+  type: LoadBalancer
 status:
   loadBalancer: {}
 ---
