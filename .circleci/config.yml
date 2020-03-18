@@ -22,6 +22,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install modules
+          command: apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python
+      - run:
+          name: Install node-gyp for binaries
+          command: npm install --silent node-gyp -g
+      - run:
           name: Install all packages
           command: npm install
       - run:
