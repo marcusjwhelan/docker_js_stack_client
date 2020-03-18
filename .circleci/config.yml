@@ -1,15 +1,15 @@
 version: 2.1
+workflow-branch: &workflow-branch
+  filters:
+    tags:
+      only: /^v.*/
+    branches:
+      ignore: /.*/
+workflow-master: &workflow-master
+  filters:
+    branches:
+      only: master
 executors:
-  workflow-branch:
-    filters:
-      tags:
-        only: /^v.*/
-      branches:
-        ignore: /.*/
-  workflow-master:
-    filters:
-      branches:
-        only: master
   docker-publisher:
     environment:
       IMAGE_NAME: mjwrazor/docker-js-stack-client
@@ -82,24 +82,24 @@ workflows:
   build-master:
     jobs:
       - test:
-          executor: workflow-master
+          <<: *workflow-master
       - build:
           requires:
             - test
-          executor: workflow-master
+          <<: *workflow-master
       - publish-latest:
           requires:
             - build
-          executor: workflow-master
+          <<: *workflow-master
   build-tags:
     jobs:
       - test:
-          executor: workflow-branch
+          <<: *workflow-branch
       - build:
           requires:
             - test
-          executor: workflow-branch
+          <<: *workflow-branch
       - publish-tag:
           requires:
             - build
-          executor: workflow-branch
+          <<: *workflow-branch
