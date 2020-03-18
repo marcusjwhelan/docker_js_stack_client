@@ -1,11 +1,32 @@
 version: 2.1
 executors:
+  workflow-branch:
+    filters:
+      tags:
+        only: /^v.*/
+      branches:
+        ignore: /.*/
+  workflow-master:
+    filters:
+      branches:
+        only: master
   docker-publisher:
     environment:
       IMAGE_NAME: mjwrazor/docker-js-stack-client
     docker:
       - image: circleci/buildpack-deps:stretch
-jobs: 
+jobs:
+  test:
+    docker:
+      - image: node:13.8.0-alpine3.11
+    steps:
+      - checkout
+      - run:
+          name: Install all packages
+          command: npm Install
+      - run:
+          name: Run tests
+          command: npm run test
   build:
     executor: docker-publisher
     steps:
@@ -60,29 +81,25 @@ workflows:
   version: 2
   build-master:
     jobs:
+      - test:
+          executor: workflow-master
       - build:
-          filters:
-            branches:
-              only: master
+          requires:
+            - test
+          executor: workflow-master
       - publish-latest:
           requires:
             - build
-          filters:
-            branches:
-              only: master
+          executor: workflow-master
   build-tags:
     jobs:
+      - test:
+          executor: workflow-branch
       - build:
-          filters:
-            tags:
-              only: /^v.*/ 
-            branches:
-              ignore: /.*/ 
+          requires:
+            - test
+          executor: workflow-branch
       - publish-tag:
           requires:
             - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+          executor: workflow-branch
