@@ -23,7 +23,7 @@ jobs:
       - checkout
       - run:
           name: Install all packages
-          command: npm Install
+          command: npm install
       - run:
           name: Run tests
           command: npm run test
