@@ -32,21 +32,6 @@ docker build -t mjwrazor/docker-js-stack-client:v0.1.0 .
 docker push mjwrazor/docker-js-stack-client:v0.1.0  
 ```
 
-## Test kubernetes deployment.yml
-
-```bash
-kubectl apply --validate=true --dry-run=true -f deployment.yaml
-kubeclt apply --validate=true -f deployment.yaml
-kubectl get services
-```
-
-Should get localhost for external IP and be able to go to localhost and get a web simple web page.
-
-Shut down test
-```bash
-kubectl delete deploy/client svc/client
-```
-
 # Setting up CircleCI
 Make sure you have circleci account and you have connected it with github. 
 

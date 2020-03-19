@@ -22,10 +22,15 @@ type HomeProps = InjectedProps
 class DesktopHome extends Component<HomeProps, {}> {
     constructor(props: HomeProps) {
         super(props)
+
+        let url = `http://localhost:8080/customers`
+        if (process.env.ENV === 'production' || process.env.NODE_ENV === 'production') {
+            url = `${process.env.APIURL}/customers`
+        }
         console.log(process.env)
         const config: AxiosRequestConfig = {
             method: 'GET',
-            url: `http://localhost:8080/customers`
+            url: url
         }
         axios.request(config)
         .then((res: any) => {

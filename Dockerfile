@@ -21,7 +21,10 @@ RUN apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python
 RUN npm install --silent node-gyp -g
 
 # install package.json modules
-RUN npm install --silent
+RUN npm install --silent --production
+
+# API URL ENV injection has to happen here not k8s
+# ENV APIURL=<backend-app-service-ip>:<port>
 
 # copy all currently made items into /var/www
 COPY . /var/www/
