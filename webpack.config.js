@@ -163,6 +163,8 @@ module.exports = {
         new AsyncChunkNames(),
         new webpack.DefinePlugin({
             'process.env': {
+                // API URL ENV injection has to happen here not k8s
+                'APIURL': JSON.stringify('http://localhost:8080'),
                 'ENV': JSON.stringify('production')
             }
         })

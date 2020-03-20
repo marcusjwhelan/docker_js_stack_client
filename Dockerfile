@@ -20,11 +20,8 @@ RUN apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python
 # install node-gyp -system specific and needs to be installed before modules
 RUN npm install --silent node-gyp -g
 
-# install package.json modules
-RUN npm install --silent --production
-
-# API URL ENV injection has to happen here not k8s
-# ENV APIURL=<backend-app-service-ip>:<port>
+# install package.json modules _ dev needs to install to build ie webpack
+RUN npm install --silent
 
 # copy all currently made items into /var/www
 COPY . /var/www/
