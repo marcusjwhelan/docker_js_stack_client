@@ -23,9 +23,6 @@ spec:
         resources: {}
         ports:
         - containerPort: 80
-        env:
-        - name: NODE_ENV
-          value: production
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
