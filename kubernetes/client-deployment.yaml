@@ -16,6 +16,17 @@ spec:
       labels:
         app: client
     spec:
+      affinity:
+        # prevent replicas on a single node
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app # key/value has to match .spec.selector.matchLabels
+                operator: In
+                values:
+                - client
+            topologyKey: "kubernetes.io/hostname"
       containers:
       - image: mjwrazor/docker-js-stack-client:latest
         name: client-container
@@ -23,6 +34,10 @@ spec:
         resources: {}
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "50m"
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
