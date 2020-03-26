@@ -16,8 +16,6 @@ spec:
       labels:
         app: client
     spec:
-      nodeSelector:
-        workload: node-selector-app
       affinity:
         # prevent replicas on a single node
         podAntiAffinity:
@@ -38,8 +36,8 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: "100Mi"
-            cpu: "50m"
+            cpu: 100m
+            memory: 100Mi
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
