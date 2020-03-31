@@ -164,6 +164,11 @@ module.exports = {
                 }
             ]*/
         }),
-        new AsyncChunkNames()
+        new AsyncChunkNames(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'ENV': JSON.stringify('development')
+            }
+        })
     ]
 };
