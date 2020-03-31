@@ -9,7 +9,7 @@ RUN mkdir -p /var/www
 WORKDIR /var/www
 
 # add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /var/www/node_modules/.bin:$PATH
 
 # copy all files in current directory to working directory
 COPY package.json /var/www/

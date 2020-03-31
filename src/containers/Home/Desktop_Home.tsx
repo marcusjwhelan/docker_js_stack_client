@@ -24,9 +24,11 @@ class DesktopHome extends Component<HomeProps, {}> {
         super(props)
 
         let url = `http://localhost:8080/customers`
-        if (process.env.ENV === 'production') {
-            url = `${process.env.APIURL}/customers`
+        if (window.NODE_ENV === 'production') {
+            url = `${window.API_URL}/customers`
         }
+        console.log(window.NODE_ENV)
+        console.log(window.API_URL)
         console.log(process.env)
         const config: AxiosRequestConfig = {
             method: 'GET',

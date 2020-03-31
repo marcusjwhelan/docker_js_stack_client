@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const AsyncChunkNames = require('webpack-async-chunk-names-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const PATH_SOURCE = path.join(__dirname, './src')
 const PATH_DIST = path.join(__dirname, './build')
@@ -130,6 +131,9 @@ module.exports = {
             inject: 'body',
             chunksSortMode: 'auto'
         }),
+        new CopyPlugin([
+            {from: 'src/config.js', to: PATH_DIST}
+        ]),
         new WebpackPwaManifest({
             name: 'Example',
             short_name: 'ex',
@@ -160,13 +164,6 @@ module.exports = {
                 }
             ]*/
         }),
-        new AsyncChunkNames(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                // API URL ENV injection has to happen here not k8s
-                'APIURL': JSON.stringify('http://localhost:8080'),
-                'ENV': JSON.stringify('production')
-            }
-        })
+        new AsyncChunkNames()
     ]
 };

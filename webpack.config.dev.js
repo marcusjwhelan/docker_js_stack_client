@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const AsyncChunkNames = require('webpack-async-chunk-names-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
+const CopyPlugin = require('copy-webpack-plugin')
+
 module.exports = {
     mode: 'development',
     target: 'web',
@@ -114,6 +116,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
+        new CopyPlugin([
+            {from: 'src/config.js', to: path.join(__dirname, '/dist')}
+        ]),
         new BundleAnalyzerPlugin(),
         new WebpackPwaManifest({
             name: 'example',
